@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quizzify</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .register-container {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .form-side {
+        flex: 1;
+        overflow-y: auto;
+        padding: 2rem;
+        max-height: 100vh;
+      }
+
+      .form-wrapper {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      input:invalid {
+        border: 2px solid red;
+      }
+
+      #previewImage {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        display: none;
+        object-fit: cover;
+        border: 2px solid var(--primary, #007bff);
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+      }
+
+      .password-strength {
+        height: 8px;
+        border-radius: 4px;
+        background: #ddd;
+        margin-top: 4px;
+        overflow: hidden;
+      }
+
+      .password-strength-bar {
+        height: 100%;
+        transition: width 0.3s ease-in-out;
+      }
+
+      .strength-weak {
+        width: 33%;
+        background: red;
+      }
+
+      .strength-medium {
+        width: 66%;
+        background: orange;
+      }
+
+      .strength-strong {
+        width: 100%;
+        background: green;
+      }
+
+      #char-count {
+        font-size: 0.9rem;
+        color: #555;
+        margin-top: 4px;
+        display: block;
+      }
+
+      #profilePreview {
+        display: none;
+        padding: 2rem;
+        text-align: center;
+        background: #1e1e2f;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        color: #f5f5f5;
+        overflow-y: auto;
+        max-height: 100vh;
+      }
+
+      #profilePreview h3 {
+        margin-bottom: 1.5rem;
+        font-size: 1.6rem;
+        color: #00bfff;
+      }
+
+      #profilePreview p {
+        margin: 0.5rem 0;
+        font-size: 1rem;
+        color: #ccc;
+      }
+
+      #profilePreview img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 1.2rem;
+        border: 2px solid #00bfff;
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+      }
+
+      #profilePreview .actions {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      #profilePreview .actions button {
+        padding: 0.6rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        background-color: #00bfff;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      #profilePreview .actions button:hover {
+        background-color: #009acd;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading-screen">
+      <video autoplay muted loop id="bg-video">
+        <source src="assets/images/welcome-background.mp4" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="logo-wrapper">
+        <div class="logo">Quizzify</div>
+      </div>
+    </div>
+
+    <div class="register-container">
+      <div class="video-side">
+        <video autoplay muted loop id="bg-video">
+          <source src="assets/images/welcome-background.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div class="form-side">
+        <div class="form-wrapper card">
+          <div class="logo center">Quizzify</div>
+
+          <!-- Register Form -->
+          <form id="registerForm" enctype="multipart/form-data" novalidate>
+            <div id="form-error"></div>
+
+            <input
+              type="text"
+              name="fullname"
+              id="fullname"
+              placeholder="Full Name"
+            />
+            <input
+              type="text"
+              name="nickname"
+              id="nickname"
+              placeholder="Nickname"
+            />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email Address"
+            />
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              placeholder="Phone Number"
+            />
+            <input
+              type="date"
+              name="dob"
+              id="dob"
+              placeholder="Date of Birth"
+            />
+            <input
+              type="file"
+              name="profile_picture"
+              id="profilePicture"
+              accept="image/png, image/jpeg"
+            />
+            <img id="previewImage" />
+
+            <div class="input-group">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+              />
+              <button type="button" id="togglePassword" class="toggle-password">
+                👁️
+              </button>
+            </div>
+
+            <div class="checkbox-wrapper">
+              <input type="checkbox" name="rememberMe" id="rememberMe" />
+              <label for="rememberMe">Remember Me</label>
+            </div>
+
+            <div class="checkbox-wrapper">
+              <input type="checkbox" name="terms" id="terms" required />
+              <label for="terms"
+                >I accept the
+                <a href="#" class="terms-link">Terms & Conditions</a></label
+              >
+            </div>
+
+            <button type="submit">Register</button>
+
+            <p style="margin-top: 1rem">
+              Already have an account?
+              <a href="login.html" style="color: var(--primary)">Login here</a>.
+            </p>
+          </form>
+
+          <!-- Profile Preview -->
+          <div id="profilePreview"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script src="assets/js/script.js"></script>
+
+    <!-- Custom Scripts -->
+    <script>
+      // Profile Picture Preview
+      document
+        .getElementById("profilePicture")
+        .addEventListener("change", function () {
+          const file = this.files[0];
+          const previewImage = document.getElementById("previewImage");
+
+          if (
+            file &&
+            (file.type === "image/png" || file.type === "image/jpeg")
+          ) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              previewImage.src = e.target.result;
+              previewImage.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+          } else {
+            previewImage.src = "";
+            previewImage.style.display = "none";
+            alert("Please upload a valid PNG or JPG image.");
+          }
+        });
+
+      // Password Strength & Character Count
+      const passwordInput = document.getElementById("password");
+      const passwordGroup = passwordInput.parentElement;
+
+      const strengthBar = document.createElement("div");
+      strengthBar.classList.add("password-strength");
+      const bar = document.createElement("div");
+      bar.classList.add("password-strength-bar");
+      strengthBar.appendChild(bar);
+      passwordGroup.appendChild(strengthBar);
+
+      const charCount = document.createElement("span");
+      charCount.id = "char-count";
+      passwordGroup.appendChild(charCount);
+
+      passwordInput.addEventListener("input", function () {
+        const value = passwordInput.value;
+        charCount.textContent = `${value.length} characters`;
+
+        bar.className = "password-strength-bar";
+        if (value.length < 6) {
+          bar.classList.add("strength-weak");
+        } else if (value.length < 10) {
+          bar.classList.add("strength-medium");
+        } else {
+          bar.classList.add("strength-strong");
+        }
+      });
+
+      // Preview Logic
+      const registerForm = document.getElementById("registerForm");
+      const profilePreview = document.getElementById("profilePreview");
+
+      registerForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        if (!registerForm.checkValidity()) {
+          registerForm.reportValidity();
+          return;
+        }
+
+        const fullname = document.getElementById("fullname").value;
+        const nickname = document.getElementById("nickname").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const dob = document.getElementById("dob").value;
+        const previewImage = document.getElementById("previewImage");
+
+        // Hide form and show preview
+        registerForm.style.display = "none";
+        profilePreview.style.display = "block";
+
+        // Render preview
+        profilePreview.innerHTML = `
+          <h3>Confirm Your Details</h3>
+          <img src="${previewImage.src}" alt="Profile Picture" />
+          <p><strong>Full Name:</strong> ${fullname}</p>
+          <p><strong>Nickname:</strong> ${nickname}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Date of Birth:</strong> ${dob}</p>
+          <div class="actions">
+            <button id="continueBtn" type="button">Continue</button>
+            <button id="goBackBtn" type="button">Go Back</button>
+          </div>
+        `;
+
+        document.getElementById("goBackBtn").addEventListener("click", () => {
+          profilePreview.style.display = "none";
+          registerForm.style.display = "block";
+        });
+
+        document.getElementById("continueBtn").addEventListener("click", () => {
+          alert("Registration complete! Redirecting to login...");
+          window.location.href = "login.html";
+        });
+      });
+    </script>
+  </body>
+</html>

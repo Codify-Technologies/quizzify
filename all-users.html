@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registered Users - Quizzify</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f9f9f9;
+        margin: 0;
+        padding: 1rem;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      .search-sort {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      input,
+      select {
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
+      .user-card {
+        background: white;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+      .user-card img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .user-info {
+        flex: 1;
+      }
+      .user-info input {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        font-size: 1rem;
+        background: transparent;
+      }
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+      button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button.edit {
+        background: #007bff;
+        color: white;
+      }
+      button.save {
+        background: #28a745;
+        color: white;
+      }
+      button.delete {
+        background: #dc3545;
+        color: white;
+      }
+      button.add-user {
+        background: #17a2b8;
+        color: white;
+      }
+      .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Registered Users</h1>
+      <button class="add-user" onclick="window.location.href='register.html'">
+        ➕ Add User
+      </button>
+    </header>
+
+    <div class="search-sort">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search by name or email"
+      />
+      <select id="sortSelect">
+        <option value="">Sort by</option>
+        <option value="fullname">Full Name</option>
+        <option value="dob">Date of Birth</option>
+      </select>
+    </div>
+
+    <div id="userList"></div>
+
+    <div class="pagination">
+      <button id="prevPage">⬅️ Previous</button>
+      <span id="pageInfo">Page 1</span>
+      <button id="nextPage">Next ➡️</button>
+    </div>
+
+    <script src="assets/js/view-users.js"></script>
+  </body>
+</html>

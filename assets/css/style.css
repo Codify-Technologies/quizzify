@@ -1,0 +1,403 @@
+/* CSS RESET */
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: "EB Garamond", serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* COLOR VARIABLES */
+:root {
+  --primary: #7f5af0;
+  --secondary: #2cb67d;
+  --accent: #f25f4c;
+  --success: #2cb67d;
+  --error: #ff3860;
+  --warning: #faae2b;
+  --card: #1f1f1f;
+  --border: #3a3a3a;
+
+  --bg: #16161a;
+  --text: #fffffe;
+}
+
+body.light-mode {
+  --bg: #fffffe;
+  --text: #16161a;
+  --card: #f1f1f1;
+  --border: #ccc;
+}
+
+/* UTILITY CLASSES */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.rounded {
+  border-radius: 12px;
+}
+
+.shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* BUTTONS */
+button {
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #6b4bd6;
+  transform: scale(1.02);
+}
+
+button:focus {
+  outline: 3px solid rgba(127, 90, 240, 0.5);
+}
+
+button.secondary {
+  background-color: var(--secondary);
+}
+
+button.accent {
+  background-color: var(--accent);
+}
+
+/* ALERTS */
+.alert {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 5px solid;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.alert.success {
+  background-color: #234d39;
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.alert.error {
+  background-color: #4d1f1f;
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.alert.warning {
+  background-color: #4d3a1f;
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+/* PRELOADER */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+  animation: fadeOut 1s ease-in-out 5s forwards;
+}
+
+.logo-wrapper {
+  z-index: 1;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* QUIZZIFY LOGO */
+.logo {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--primary);
+  text-shadow: 2px 2px var(--accent);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* DARK MODE TOGGLER */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--card);
+  border: 2px solid var(--border);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: var(--text);
+  font-weight: bold;
+  z-index: 999;
+  transition: background-color 0.2s;
+}
+
+.theme-toggle:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+/* CARD STYLES */
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* TIMER */
+.timer {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+/* LEADERBOARD */
+.leaderboard {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard li {
+  background: var(--card);
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  border-left: 5px solid var(--primary);
+  border-radius: 8px;
+}
+
+/* FORM ELEMENTS */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input,
+select {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--text);
+  width: 100%;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(127, 90, 240, 0.3);
+}
+
+/* EYE ICON TOGGLE FOR PASSWORD FIELD */
+.input-group {
+  position: relative;
+}
+
+.input-group input[type="password"],
+.input-group input[type="text"] {
+  padding-right: 2.5rem;
+}
+
+.input-group .toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* CHECKBOXES */
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  accent-color: var(--primary);
+}
+
+.checkbox-wrapper label {
+  font-size: 0.95rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* FILE INPUT */
+form input[type="file"] {
+  background-color: transparent;
+  border: none;
+  color: var(--text);
+}
+
+form input::file-selector-button {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+/* REGISTER FORM */
+.register-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.video-side {
+  flex: 1;
+  position: relative;
+  height: 100%;
+}
+
+#bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  filter: brightness(0.4);
+  z-index: -1;
+}
+
+.form-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg);
+  color: var(--text);
+  padding: 2rem;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem;
+  border-radius: 16px;
+  background-color: var(--card);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .register-container {
+    flex-direction: column;
+  }
+
+  .video-side {
+    height: 40vh;
+  }
+
+  .form-side {
+    padding: 1rem;
+  }
+
+  .theme-toggle {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.4rem 0.75rem;
+  }
+}
